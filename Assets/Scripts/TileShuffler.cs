@@ -122,7 +122,7 @@ public class TileShuffler : MonoBehaviour {
 		//Setup layermask to make sure that you cannot grab between collisions
 		Ray ray = cam.ScreenPointToRay(Input.mousePosition);
 		RaycastHit hit;
-		if (Physics.Raycast(ray, out hit, 20f, TILE_MASK)) {
+		if (Physics.Raycast(ray, out hit, 2000f, TILE_MASK)) {
 			selectedTileT = hit.transform;
 			selected = true;
 			Debug.Log("Selected: " + selectedTileT.name);

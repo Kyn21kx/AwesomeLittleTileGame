@@ -98,6 +98,7 @@ public class ImageHandler : MonoBehaviour {
 				var spawned = Instantiate(baseTile, this.transform);
 				spawned.transform.GetChild(0).name = $"Tile {i},{j}";
 				Vector3 position = new Vector3(startingPos.x + (i * nWidth), startingPos.y + (j * nHeight), 0f);
+				//spawned.transform.parent = null;
 				//Spawn them in a random position within the
 				spawned.transform.position = position / transformDownFactor;
 				spawned.transform.localScale = new Vector3(nWidth - 1, nHeight - 1, spawned.transform.localScale.z) / scaleDownFactor;
