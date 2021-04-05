@@ -11,7 +11,7 @@ public class TileShuffler : MonoBehaviour {
 		LEFT = -1,
 		RIGHT = 1,
 		NONE = 3
-    }
+	}
 
 	#region Variables
 	private const int TILE_MASK = 1 << 8;
@@ -21,6 +21,7 @@ public class TileShuffler : MonoBehaviour {
 	private Transform selectedTileT;
 	private bool selected;
 	private Directions direction;
+	public bool Won { get; private set; }
 	#endregion
 
 	//Do mouse picking (Lifting the tile slighlty, and moving it to 
@@ -28,6 +29,7 @@ public class TileShuffler : MonoBehaviour {
 
 	private void Start() {
 		cam = Camera.main;
+		Won = false;
 		direction = Directions.NONE;
 	}
 
@@ -57,23 +59,23 @@ public class TileShuffler : MonoBehaviour {
 		(int i, int j) prevIndeces = indeces;
 		Debug.Log(indeces);
 		//Switch
-        switch (direction) {
-            case Directions.UP:
-            case Directions.DOWN:
+		switch (direction) {
+			case Directions.UP:
+			case Directions.DOWN:
 				int value = Mathf.Abs((int)direction);
 				indeces.j += (int)Mathf.Sign((int) direction) * (value - 1);
-                break;
-            case Directions.LEFT:
-            case Directions.RIGHT:
+				break;
+			case Directions.LEFT:
+			case Directions.RIGHT:
 				indeces.i += (int)direction;
-                break;
-            case Directions.NONE:
-                return;
-        }
+				break;
+			case Directions.NONE:
+				return;
+		}
 		//Check for bounds
 		if (!IsValidMove(indeces)) {
 			Debug.Log("Invalid move!");
-        }
+		}
 		else {
 			//Set active the empty tile object, and
 			//Swap their textures
@@ -86,10 +88,8 @@ public class TileShuffler : MonoBehaviour {
 			futureIndexed.gameObject.SetActive(true);
 			prevIndexed.gameObject.SetActive(false);
 			
-			if(handlerRef.IsOriginalArrangement()) {
-				//You've won
-				Debug.Log("You've won!");
-            }
+			if(handlerRef.IsOriginalArrangement())
+				Won = true;
 		}
 	}
 

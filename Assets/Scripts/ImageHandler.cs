@@ -17,7 +17,7 @@ public class ImageHandler : MonoBehaviour {
 
 		public static bool operator ==(Tile a, Tile b) {
 			return a.gameObject == b.gameObject && a.texture == b.texture;
-        }
+		}
 
 		public static bool operator !=(Tile a, Tile b) {
 			return !(a == b);
@@ -114,13 +114,13 @@ public class ImageHandler : MonoBehaviour {
 	}
 
 	public bool IsOriginalArrangement() {
-        //Cycle through the array and compare their textures
-        for (int i = 0; i < TileMatrix.GetLength(0); i++) {
-            for (int j = 0; j < TileMatrix.GetLength(1); j++) {
+		//Cycle through the array and compare their textures
+		for (int i = 0; i < TileMatrix.GetLength(0); i++) {
+			for (int j = 0; j < TileMatrix.GetLength(1); j++) {
 				if (TileMatrix[i, j].texture != originalTM[i, j].texture)
 					return false;
-            }
-        }
+			}
+		}
 		return true;
-    }
+	}
 }

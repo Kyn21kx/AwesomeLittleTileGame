@@ -43,10 +43,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca9f3a9a0ff07a7498bb9ed3ddca6a81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  originalImage: {fileID: 2800000, guid: d3ecf09c1a050a64c920f08fa18ea2b3, type: 3}
+  originalImage: {fileID: 2800000, guid: 44ca982121c565b48ba941e8c1cbbfc0, type: 3}
   baseTile: {fileID: 8651029375432606520, guid: ab39b6af5911d7c4684f71c89841c087, type: 3}
   startingPos: {x: 0, y: 0, z: 0}
-  scaleDownFactor: 100
-  transformDownFactor: 90
+  scaleDownFactor: 50
+  transformDownFactor: 40
   horizontal: 5
   vertical: 3

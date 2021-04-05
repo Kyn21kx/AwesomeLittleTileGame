@@ -4,5 +4,9 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/NatureManufacture Assets/Winter Background Mountains/Winter Mountains
+      Demo.unity
+    guid: 89a820ba874076c4ba73fe28b9afd038
   m_configObjects: {}
