@@ -8,7 +8,11 @@ public class Steganography : MonoBehaviour {
 	public Texture2D image;
 
 	private void Start() {
-		Encrypt(image, "Test");
+		//Encrypt(image, "Test");
+		byte[] arr = SplitByte(88);
+		for (int i = 0; i < arr.Length; i++) {
+			Debug.Log(arr[i]);
+		}
 	}
 
 	public void Encrypt(Texture2D image, string message) {
@@ -34,9 +38,15 @@ public class Steganography : MonoBehaviour {
 		File.WriteAllBytes($"./Assets/Sprites/Encoded_{image.name}.jpg", data);
 	}
 
-	private BitArray SplitByte(byte b) {
-		//BitArray bits = new BitArray()
-		return null;
+	private byte[] SplitByte(byte b) {
+		byte[] result = new byte[8];
+		byte controlByte = 1;
+		for (int i = 0; i < 8; i++) {
+			result[i] = (byte)((b & controlByte) >> i);
+			controlByte <<= 1;
+		}
+		System.Array.Reverse(result);
+		return result;
 	}
 
 	public string Decrypt(Texture2D image) {
