@@ -11,14 +11,16 @@ public class Steganography : MonoBehaviour {
 	public string[] hints;
 	
 	private void Start() {
+		/*
 		for (int i = 0; i < images.Length; i++) {
 			Encrypt(images[i], hints[i]);
 			Debug.Log($"{images[i].name}: {Decrypt(images[i])}");
-		}
+		}*/
 	}
 
 	public void Encrypt(Texture2D image, string message) {
 		int byteIndex = 0, bitIndex = 0;
+		message = message.Length.ToString("X") + message;
 		byte[] currentByte = SplitByte((byte)message[byteIndex]);
 		//Texture2D encryptedImage = new Texture2D(image.width, image.height, image.format, false);
 		for (int y = 0; y < image.height; y++) {
@@ -78,26 +80,45 @@ public class Steganography : MonoBehaviour {
 		}
 	}
 
+	private int ConvertFromHex(string hex) {
+		return int.Parse(hex, System.Globalization.NumberStyles.HexNumber);
+	}
+
 	public string Decrypt(Texture2D image) {
 		StringBuilder sb = new StringBuilder();
 		int bitIndex = 0;
 		byte[] bytes = new byte[8];
+		string length = "";
+		int characterIndex = -1;
 		for (int y = 0; y < image.height; y++) {
 			for (int x = 0; x < image.width; x++) {
 				if (bitIndex >= 8) {
 					byte result;
 					System.Array.Reverse(bytes);
 					JoinBits(bytes, out result);
-					sb.Append((char)result);
 					bitIndex = 0;
 					bytes = new byte[8];
+
+					characterIndex++;
+
+					if (characterIndex < 2) {
+						length += ((char)result).ToString();
+					}
+					else
+						sb.Append((char)result);
 				}
 				Color pixel = image.GetPixel(x, y);
 				byte blue = (byte)(pixel.b * 255);
 				//Get the last bit of the blue channel
 				bytes[bitIndex] = (byte)(blue & 0x01);
-				if (pixel.b == 1f)
-					return sb.ToString();
+
+
+				if (characterIndex > 1) {
+					int realLength = ConvertFromHex(length.ToString());
+
+					if (characterIndex >= realLength)
+						return sb.ToString();
+				}
 				bitIndex++;
 			}
 		}

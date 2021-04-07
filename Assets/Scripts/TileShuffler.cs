@@ -38,7 +38,7 @@ public class TileShuffler : MonoBehaviour {
 			SelectTile();
 		}
 		else if (Input.GetMouseButtonUp(0) && selectedTileT != null) {
-			Debug.Log("Tile " + selectedTileT.name + " has been deselected!");
+			//Debug.Log("Tile " + selectedTileT.name + " has been deselected!");
 			selected = false;
 			MoveTile();
 			selectedTileT = null;
@@ -51,13 +51,13 @@ public class TileShuffler : MonoBehaviour {
 	}
 
 	private void MoveTile() {
-		Debug.Log(direction);
+		//Debug.Log(direction);
 		//Get the tile's indeces
 		StringBuilder sb = new StringBuilder(selectedTileT.name.Replace("Tile ", ""));
 		string[] strIndeces = sb.ToString().Split(',');
 		(int i, int j) indeces = (System.Convert.ToInt32(strIndeces[0]), System.Convert.ToInt32(strIndeces[1]));
 		(int i, int j) prevIndeces = indeces;
-		Debug.Log(indeces);
+		//Debug.Log(indeces);
 		//Switch
 		switch (direction) {
 			case Directions.UP:
@@ -74,7 +74,7 @@ public class TileShuffler : MonoBehaviour {
 		}
 		//Check for bounds
 		if (!IsValidMove(indeces)) {
-			Debug.Log("Invalid move!");
+			//Debug.Log("Invalid move!");
 		}
 		else {
 			//Set active the empty tile object, and
@@ -109,7 +109,7 @@ public class TileShuffler : MonoBehaviour {
 			mousePos.z = 10f;
 			Vector2 dir = (cam.ScreenToWorldPoint(mousePos) - selectedTileT.position);
 			dir.Normalize();
-			Debug.DrawRay(selectedTileT.position, dir);
+			//Debug.DrawRay(selectedTileT.position, dir);
 			//Now, get the int representation of the direction you want the tile to move
 			float* p = Utils.GetMaxAbsPointer(&dir.x, &dir.y);
 			//Give me 2 * sign if X, if Y 1 * sign
@@ -125,7 +125,7 @@ public class TileShuffler : MonoBehaviour {
 		if (Physics.Raycast(ray, out hit, 2000f, TILE_MASK)) {
 			selectedTileT = hit.transform;
 			selected = true;
-			Debug.Log("Selected: " + selectedTileT.name);
+			//Debug.Log("Selected: " + selectedTileT.name);
 		}
 	}
 

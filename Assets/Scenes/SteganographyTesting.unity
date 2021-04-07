@@ -235,7 +235,7 @@ MonoBehaviour:
   - {fileID: 2800000, guid: b66c901bb550b5e46b23986a83a3e54e, type: 3}
   - {fileID: 2800000, guid: 4f610af47f47e5044a1d11cd5afe6d45, type: 3}
   hints:
-  - ' Consiste en descomponer un todo en los elementos que lo integran, de acuerdo
+  - 'Consiste en descomponer un todo en los elementos que lo integran, de acuerdo
     a uno o varios criterios. '
   - "Ordena ideas o conceptos para que cada uno de ellos posea caracter\xEDsticas
     de acuerdo a criterios predeterminados, que se requieren para pertenecer a un

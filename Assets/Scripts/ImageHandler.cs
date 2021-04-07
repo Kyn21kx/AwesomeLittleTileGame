@@ -62,14 +62,14 @@ public class ImageHandler : MonoBehaviour {
 		steganography = GetComponent<Steganography>();
 		ChooseRandomImage();
 		SpawnParts();
-		string hint = steganography.Decrypt(originalImage);
-		Debug.Log(hint);
-		hintText.SetText(hint);
 	}
 
 	private void ChooseRandomImage() {
 		int index = Random.Range(0, 14);
 		originalImage = images[index];
+		string hint = steganography.hints[index];
+		//Debug.Log(hint);
+		hintText.SetText(hint);
 	}
 
 	public void SpawnParts() {
