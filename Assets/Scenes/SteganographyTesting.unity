@@ -219,7 +219,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc8f2eb23cf509e4293f2bda19c75542, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  image: {fileID: 2800000, guid: 7fd36724be7aeda43b01d8a1f50a3c2b, type: 3}
+  images:
+  - {fileID: 2800000, guid: d49742f561811094ebd072218e42d7c1, type: 3}
+  - {fileID: 2800000, guid: 0f865b0c472dd1749bf021e11ea5a436, type: 3}
+  - {fileID: 2800000, guid: 78cdd8b5a4d59e041af75a29614dc9b1, type: 3}
+  - {fileID: 2800000, guid: d6d951a703c09c04d82b21483fe805bc, type: 3}
+  - {fileID: 2800000, guid: 3ea0a55f02c2aef4aac4c49074957094, type: 3}
+  - {fileID: 2800000, guid: be88b3f0c18b2e34ca3c781806aa5143, type: 3}
+  - {fileID: 2800000, guid: 1138dffece5d09d46b1dba8b6c0367da, type: 3}
+  - {fileID: 2800000, guid: 1c317014b5180a344813088a2f585742, type: 3}
+  - {fileID: 2800000, guid: bfed8066562931b40a4c0ae254fc554e, type: 3}
+  - {fileID: 2800000, guid: b770f583f29e5b444b26833ae0b3e1fe, type: 3}
+  - {fileID: 2800000, guid: d35389bd65b8afe4db57a80f8f472a78, type: 3}
+  - {fileID: 2800000, guid: dcfda5cba8b9daf4584f9635e6547e3a, type: 3}
+  - {fileID: 2800000, guid: b66c901bb550b5e46b23986a83a3e54e, type: 3}
+  - {fileID: 2800000, guid: 4f610af47f47e5044a1d11cd5afe6d45, type: 3}
+  hints:
+  - ' Consiste en descomponer un todo en los elementos que lo integran, de acuerdo
+    a uno o varios criterios. '
+  - "Ordena ideas o conceptos para que cada uno de ellos posea caracter\xEDsticas
+    de acuerdo a criterios predeterminados, que se requieren para pertenecer a un
+    grupo espec\xEDfico."
+  - Permite agrupar personas/objetos/situaciones con base en sus semejanzas y diferencias.
+  - "Examina objetos/personas/situaciones con el fin de poner atenci\xF3n a los atributos
+    que los hacen similares o diferentes utilizando contrastes. "
+  - "Idea a la que se llega despu\xE9s de considerar una serie de datos o circunstancias,
+    el ep\xEDtome de un todo."
+  - "Explica de forma detallada y ordenada c\xF3mo son objetos/personas/situaciones,
+    basado en la observaci\xF3n."
+  - "T\xE9cnica que consiste en observar un objeto/persona/situaci\xF3n con el fin
+    de determinar las caracter\xEDsticas presentes. "
+  - "Nos ayuda, mediante procesos cognitivos, a describir hechos u objetos presentes
+    en nuestro d\xEDa a d\xEDa."
+  - "Forma de razonamiento t\xEDpica de los seres humanos que es capaz de procesar
+    y reformular la informaci\xF3n de maneras originales, flexibles, pl\xE1sticas
+    y fluidas. "
+  - "Proceso donde usamos la raz\xF3n para dirigir el pensamiento de forma que se
+    cuestionan afirmaciones o emociones para llegar a la postura m\xE1s razonable. "
+  - "Interpreta, combina ideas o elabora una serie de conclusiones a partir de ciertos
+    datos o informaci\xF3n percibida para identificar informaci\xF3n que no est\xE1
+    explicita."
+  - "Hace abstracciones y establece nexos entre los datos una vez reunidos mediante
+    la observaci\xF3n y comparaci\xF3n."
+  - "Es una sucesi\xF3n de objetos/personas/situaciones que siguen un orden o guardan
+    una relaci\xF3n entre ellos."
+  - "Proceso inverso al an\xE1lisis, consiste en la integraci\xF3n de las partes
+    de un todo. "
 --- !u!1 &1995690738
 GameObject:
   m_ObjectHideFlags: 0

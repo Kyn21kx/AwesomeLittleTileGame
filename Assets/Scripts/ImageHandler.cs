@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
+using TMPro;
 
 /// <summary>
 /// Manages an image, creating a 3x5 matrix containing each a part of an image
@@ -33,6 +34,7 @@ public class ImageHandler : MonoBehaviour {
 
 	#region Variables
 	[SerializeField]
+	private Texture2D[] images;
 	private Texture2D originalImage;
 	[SerializeField]
 	private GameObject baseTile;
@@ -42,6 +44,10 @@ public class ImageHandler : MonoBehaviour {
 	private float scaleDownFactor;
 	[SerializeField]
 	private float transformDownFactor;
+	[SerializeField]
+	private TextMeshProUGUI hintText;
+	[SerializeField]
+	private Steganography steganography;
 	public int horizontal;
 	public int vertical;
 	/// <summary>
@@ -53,7 +59,17 @@ public class ImageHandler : MonoBehaviour {
 	#endregion
 
 	private void Awake() {
+		steganography = GetComponent<Steganography>();
+		ChooseRandomImage();
 		SpawnParts();
+		string hint = steganography.Decrypt(originalImage);
+		Debug.Log(hint);
+		hintText.SetText(hint);
+	}
+
+	private void ChooseRandomImage() {
+		int index = Random.Range(0, 14);
+		originalImage = images[index];
 	}
 
 	public void SpawnParts() {
