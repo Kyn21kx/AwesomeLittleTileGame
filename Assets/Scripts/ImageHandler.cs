@@ -76,6 +76,7 @@ public class ImageHandler : MonoBehaviour {
 		TileMatrix = GetTiles();
 		Tile[,] shuffled = (Tile[,])TileMatrix.Clone();
 		Utils.Randomize(shuffled);
+
 		for (int i = 0; i < horizontal; i++) {
 			for (int j = 0; j < vertical; j++) {
 				TileMatrix[i, j].SetTexture(shuffled[i, j].texture);

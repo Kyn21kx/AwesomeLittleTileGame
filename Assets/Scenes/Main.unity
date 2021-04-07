@@ -223,6 +223,10 @@ PrefabInstance:
       propertyPath: timeDisplayText
       value: 
       objectReference: {fileID: 2025394019}
+    - target: {fileID: 404642451, guid: 5f4502620aa2b144daae817cfb3d71ba, type: 3}
+      propertyPath: handler
+      value: 
+      objectReference: {fileID: 1639716955}
     - target: {fileID: 6848925168072103674, guid: 5f4502620aa2b144daae817cfb3d71ba, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -809,7 +813,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 2
-  m_BackGroundColor: {r: 0.8679245, g: 0.24973297, b: 0.45874056, a: 0.92941177}
+  m_BackGroundColor: {r: 0.6509434, g: 0.5803222, b: 0.60416245, a: 0.92941177}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0
@@ -850,7 +854,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2121790520}
   m_LocalRotation: {x: 0.000006156983, y: 0.7071068, z: 0.000006156983, w: 0.7071068}
-  m_LocalPosition: {x: -941.283, y: -276.6705, z: 1430}
+  m_LocalPosition: {x: -941.283, y: -276.6705, z: 1428}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1014126297}

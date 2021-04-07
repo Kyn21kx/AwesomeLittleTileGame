@@ -6,6 +6,7 @@ using TMPro;
 
 public class GameManager : MonoBehaviour {
 
+	public ImageHandler handler;
 	public TileShuffler shuffler;
 	public TMP_InputField timeInputTxt;
 	public TextMeshProUGUI userInfoText;
@@ -20,16 +21,23 @@ public class GameManager : MonoBehaviour {
 		time = 0f;
 		started = false;
 		gameOver = false;
-		Invoke("DisableTiles", 0.5f);
+		Invoke("DisableTiles", 0.02f);
 	}
 
 	private void DisableTiles() {
 		shuffler.enabled = false;
+		handler.gameObject.SetActive(false);
 		userInfoText.SetText("Por favor ingresa la cantidad de tiempo que te tomará resolver el puzzle y presiona Enter!");
 	}
 
 	private void Update() {
 		SetTimeStart();
+		//Check if you've won or not
+		if (shuffler.Won) {
+			userInfoText.SetText("Felicidades, has ganado!!!");
+			gameOver = true;
+			shuffler.enabled = false;
+		}
 		if (started && !gameOver) {
 			//Count down time to win
 			CheckCounterReduce();
@@ -42,11 +50,7 @@ public class GameManager : MonoBehaviour {
 
 	private void CheckCounterReduce() {
 		if (time <= 0f) {
-			//Check if you've won or not
-			if (shuffler.Won) {
-				userInfoText.SetText("Felicidades, has ganado!!!");
-			}
-			else {
+			if (!shuffler.Won) {
 				userInfoText.SetText("Fin del juego, perdiste :(\nPresiona Enter para reiniciar");
 				shuffler.enabled = false;
 				gameOver = true;
@@ -69,7 +73,7 @@ public class GameManager : MonoBehaviour {
 	}
 
 	private void SetTimeStart() {
-		if (Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter) && !started) {
+		if ((Input.GetKeyDown(KeyCode.Return) || Input.GetKeyDown(KeyCode.KeypadEnter)) && !started) {
 			time = GetInputTime();
 			if (time <= 0f || time > 59 * 60) {
 				userInfoText.SetText("Entrada inválida, intenta de nuevo...");
@@ -78,6 +82,7 @@ public class GameManager : MonoBehaviour {
 			userInfoText.SetText("");
 			started = true;
 			//Now let's enable the shuffler
+			handler.gameObject.SetActive(true);
 			shuffler.enabled = true;
 			timeInputTxt.gameObject.SetActive(false);
 		}

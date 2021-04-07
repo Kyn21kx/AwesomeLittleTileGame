@@ -36,6 +36,7 @@ public static class Utils {
 		// Randomize the array.
 		System.Random rand = new System.Random();
 		for (int i = 0; i < num_cells - 1; i++) {
+			//if (i == 1) return;
 			// Pick a random cell between i and the end of the array.
 			int j = rand.Next(i, num_cells);
 
