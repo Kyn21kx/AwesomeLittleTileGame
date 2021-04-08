@@ -46,6 +46,10 @@ public class ImageHandler : MonoBehaviour {
 
 	#region Variables
 	[SerializeField]
+	private TextMeshProUGUI debugTile;
+	[SerializeField]
+	private TextMeshProUGUI debugOT;
+	[SerializeField]
 	private Texture2D[] images;
 	private Texture2D originalImage;
 	[SerializeField]
@@ -95,7 +99,6 @@ public class ImageHandler : MonoBehaviour {
 					TileMatrix[i, j].SetTexture(originalTM[i, j].texture);
 					TileMatrix[i, j].gameObject.SetActive(false);
 					lastTile = TileMatrix[i, j];
-					Assert.IsTrue(lastTile.IsLast);
 					continue;
 				}
 				TileMatrix[i, j].SetTexture(shuffled[i, j].texture);
@@ -113,6 +116,7 @@ public class ImageHandler : MonoBehaviour {
 		int indexI = TileMatrix.GetLength(0) - 1;
 		lastTile = TileMatrix[indexI, 0];
 		//lastTile.gameObject.SetActive(false);
+		//Assert.IsTrue(lastTile.IsLast);
 		originalTM = (Tile[,])TileMatrix.Clone();
 	}
 
@@ -161,11 +165,14 @@ public class ImageHandler : MonoBehaviour {
 
 	public bool IsOriginalArrangement() {
 		//Cycle through the array and compare their textures
+		debugTile.SetText("");
 		for (int i = 0; i < TileMatrix.GetLength(0); i++) {
 			for (int j = 0; j < TileMatrix.GetLength(1); j++) {
+				debugTile.text += i + "," + j + " ";
 				if (TileMatrix[i, j].texture != originalTM[i, j].texture)
 					return false;
 			}
+			debugTile.text += "\n";
 		}
 		return true;
 	}
