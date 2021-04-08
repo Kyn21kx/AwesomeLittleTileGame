@@ -46,10 +46,6 @@ public class ImageHandler : MonoBehaviour {
 
 	#region Variables
 	[SerializeField]
-	private TextMeshProUGUI debugTile;
-	[SerializeField]
-	private TextMeshProUGUI debugOT;
-	[SerializeField]
 	private Texture2D[] images;
 	private Texture2D originalImage;
 	[SerializeField]
@@ -91,32 +87,44 @@ public class ImageHandler : MonoBehaviour {
 	public void SpawnParts() {
 		TileMatrix = GetTiles();
 		SetGlobalTiles();
-		Tile[,] shuffled = GetFakeMatrix();
+
+		Texture2D lastTileT = TileMatrix[4, 0].texture;
+		Texture2D nonShuffled1 = TileMatrix[4, 1].texture;
+		Texture2D nonShuffled2 = TileMatrix[3, 0].texture;
+		
+		Tile[,] shuffled = (Tile[,])TileMatrix.Clone();
 		Utils.Randomize(shuffled);
 		for (int i = 0; i < horizontal; i++) {
 			for (int j = 0; j < vertical; j++) {
-				if (shuffled[i, j] == Tile.Empty) {
-					TileMatrix[i, j].SetTexture(originalTM[i, j].texture);
-					TileMatrix[i, j].gameObject.SetActive(false);
-					lastTile = TileMatrix[i, j];
-					continue;
-				}
 				TileMatrix[i, j].SetTexture(shuffled[i, j].texture);
 			}
 		}
+		
+		(int i, int j) lastTilePos = FindInMatrix(TileMatrix, lastTileT);
+		
+		SwapElements(ref TileMatrix[4, 0], ref TileMatrix[lastTilePos.i, lastTilePos.j]);
+		(int i, int j) pos1 = FindInMatrix(TileMatrix, nonShuffled1);
+		SwapElements(ref TileMatrix[4, 1], ref TileMatrix[pos1.i, pos1.j]);
+		(int i, int j) pos2 = FindInMatrix(TileMatrix, nonShuffled2);
+		SwapElements(ref TileMatrix[3, 0], ref TileMatrix[pos2.i, pos2.j]);
+		//Debug.Log(pos1);
+
+		TileMatrix[4, 0].gameObject.SetActive(false);
+		lastTile = TileMatrix[4, 0];
+		Assert.IsTrue(lastTile.IsLast);
 	}
 
-	private Tile[,] GetFakeMatrix() {
-		Tile[,] fakeM = (Tile[,])TileMatrix.Clone();
-		fakeM[4, 0] = Tile.Empty;
-		return fakeM;
+
+	private void SwapElements(ref Tile a, ref Tile b) {
+		Texture2D temp = a.texture;
+		a.SetTexture(b.texture);
+		b.SetTexture(temp);
 	}
 
 	private void SetGlobalTiles() {
 		int indexI = TileMatrix.GetLength(0) - 1;
 		lastTile = TileMatrix[indexI, 0];
 		//lastTile.gameObject.SetActive(false);
-		//Assert.IsTrue(lastTile.IsLast);
 		originalTM = (Tile[,])TileMatrix.Clone();
 	}
 
@@ -126,8 +134,8 @@ public class ImageHandler : MonoBehaviour {
 
 		Tile[,] tiles = new Tile[horizontal, vertical];
 		
-		int roundedHeight = Mathf.FloorToInt(nHeight);
-		int roundedWidth = Mathf.FloorToInt(nHeight);
+		int roundedHeight = (int)nHeight;
+		int roundedWidth = (int)nHeight;
 
 		//Starting pos + nWidth gives you the next positions
 		for (int i = 0; i < horizontal; i++) {
@@ -165,22 +173,19 @@ public class ImageHandler : MonoBehaviour {
 
 	public bool IsOriginalArrangement() {
 		//Cycle through the array and compare their textures
-		debugTile.SetText("");
 		for (int i = 0; i < TileMatrix.GetLength(0); i++) {
 			for (int j = 0; j < TileMatrix.GetLength(1); j++) {
-				debugTile.text += i + "," + j + " ";
 				if (TileMatrix[i, j].texture != originalTM[i, j].texture)
 					return false;
 			}
-			debugTile.text += "\n";
 		}
 		return true;
 	}
 
-	private (int i, int j) FindInMatrix(Tile[,] matrix, Tile element) {
+	private (int i, int j) FindInMatrix(Tile[,] matrix, Texture2D element) {
 		for (int i = 0; i < TileMatrix.GetLength(0); i++) {
 			for (int j = 0; j < TileMatrix.GetLength(1); j++) {
-				if (TileMatrix[i, j] == element)
+				if (TileMatrix[i, j].texture == element)
 					return (i, j);
 			}
 		}
