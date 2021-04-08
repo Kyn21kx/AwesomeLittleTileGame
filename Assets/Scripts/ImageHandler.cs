@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.Assertions;
 using TMPro;
 
 /// <summary>
@@ -16,12 +17,23 @@ public class ImageHandler : MonoBehaviour {
 		public Texture2D texture;
 		public bool IsLast { get { return !gameObject.activeSelf; } }
 
+		public static Tile Empty { get { 
+				Tile t = new Tile();
+				t.gameObject = null;
+				t.texture = null;
+				return t;
+			} }
+
 		public static bool operator ==(Tile a, Tile b) {
 			return a.gameObject == b.gameObject && a.texture == b.texture;
 		}
 
 		public static bool operator !=(Tile a, Tile b) {
 			return !(a == b);
+		}
+
+		public override bool Equals(object other) {
+			return this == (Tile)other;
 		}
 
 		public void SetTexture(Texture2D texture) {
@@ -74,21 +86,31 @@ public class ImageHandler : MonoBehaviour {
 
 	public void SpawnParts() {
 		TileMatrix = GetTiles();
-		Tile[,] shuffled = (Tile[,])TileMatrix.Clone();
+		SetGlobalTiles();
+		Tile[,] shuffled = GetFakeMatrix();
 		Utils.Randomize(shuffled);
-
 		for (int i = 0; i < horizontal; i++) {
 			for (int j = 0; j < vertical; j++) {
+				if (shuffled[i, j] == Tile.Empty) {
+					TileMatrix[i, j].SetTexture(originalTM[i, j].texture);
+					TileMatrix[i, j].gameObject.SetActive(false);
+					continue;
+				}
 				TileMatrix[i, j].SetTexture(shuffled[i, j].texture);
 			}
 		}
-		SetGlobalTiles();
+	}
+
+	private Tile[,] GetFakeMatrix() {
+		Tile[,] fakeM = (Tile[,])TileMatrix.Clone();
+		fakeM[4, 0] = Tile.Empty;
+		return fakeM;
 	}
 
 	private void SetGlobalTiles() {
-		int indexI = TileMatrix.GetLength(0) - 1, indexJ = TileMatrix.GetLength(1) - 1;
-		lastTile = TileMatrix[indexI, indexJ];
-		TileMatrix[indexI, 0].gameObject.SetActive(false);
+		int indexI = TileMatrix.GetLength(0) - 1;
+		lastTile = TileMatrix[indexI, 0];
+		//lastTile.gameObject.SetActive(false);
 		originalTM = (Tile[,])TileMatrix.Clone();
 	}
 
@@ -105,20 +127,25 @@ public class ImageHandler : MonoBehaviour {
 		for (int i = 0; i < horizontal; i++) {
 			for (int j = 0; j < vertical; j++) {
 				Texture2D nTexture = new Texture2D(roundedWidth, roundedHeight, originalImage.format, false);
+				
 				(int x, int y) pos;
 				pos.x = roundedWidth * i;
 				pos.y = roundedHeight * j;
+
 				Color[] pixelChunk = originalImage.GetPixels(pos.x, pos.y, roundedWidth, roundedHeight);
 				nTexture.SetPixels(pixelChunk);
 				byte[] bytes = nTexture.EncodeToPNG();
+				
 				//Create a new game object with the proper sprite attached
 				var spawned = Instantiate(baseTile, this.transform);
 				spawned.transform.GetChild(0).name = $"Tile {i},{j}";
 				Vector3 position = new Vector3(startingPos.x + (i * nWidth), startingPos.y + (j * nHeight), 0f);
+				
 				//spawned.transform.parent = null;
 				//Spawn them in a random position within the
 				spawned.transform.position = position / transformDownFactor;
 				spawned.transform.localScale = new Vector3(nWidth - 1, nHeight - 1, spawned.transform.localScale.z) / scaleDownFactor;
+				
 				//Think of moving these to hard drive to avoid using too much memory
 				nTexture.LoadImage(bytes);
 				Tile t = new Tile();
@@ -140,4 +167,15 @@ public class ImageHandler : MonoBehaviour {
 		}
 		return true;
 	}
+
+	private (int i, int j) FindInMatrix(Tile[,] matrix, Tile element) {
+		for (int i = 0; i < TileMatrix.GetLength(0); i++) {
+			for (int j = 0; j < TileMatrix.GetLength(1); j++) {
+				if (TileMatrix[i, j] == element)
+					return (i, j);
+			}
+		}
+		return (-1, -1);
+	}
+
 }

@@ -568,11 +568,11 @@ PrefabInstance:
       objectReference: {fileID: 1209065089908807158}
     - target: {fileID: 2542598892307172118, guid: da61f040986aa304bac84877dbaaf971, type: 3}
       propertyPath: scaleDownFactor
-      value: 90
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 2542598892307172118, guid: da61f040986aa304bac84877dbaaf971, type: 3}
       propertyPath: transformDownFactor
-      value: 85
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 2542598892307172118, guid: da61f040986aa304bac84877dbaaf971, type: 3}
       propertyPath: startingPos.x

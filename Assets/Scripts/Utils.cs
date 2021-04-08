@@ -45,7 +45,6 @@ public static class Utils {
 			int col_i = i % num_cols;
 			int row_j = j / num_cols;
 			int col_j = j % num_cols;
-
 			// Swap cells i and j.
 			T temp = values[row_i, col_i];
 			values[row_i, col_i] = values[row_j, col_j];
