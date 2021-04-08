@@ -94,6 +94,8 @@ public class ImageHandler : MonoBehaviour {
 				if (shuffled[i, j] == Tile.Empty) {
 					TileMatrix[i, j].SetTexture(originalTM[i, j].texture);
 					TileMatrix[i, j].gameObject.SetActive(false);
+					lastTile = TileMatrix[i, j];
+					Assert.IsTrue(lastTile.IsLast);
 					continue;
 				}
 				TileMatrix[i, j].SetTexture(shuffled[i, j].texture);
